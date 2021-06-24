@@ -1,0 +1,81 @@
+spring:
+       application:
+                 name: Api-Gateway
+       cloud:
+                 gateway:
+                      routes:
+                         - id: Customer-Management-Service
+                           uri: lb://Customer-Management-Service
+                           predicates: 
+                            - Path=/customer/**
+                           filters:
+                               - name: CircuitBreaker
+                                 args:
+                                    name: Customer-Management-Service
+                                    fallbackuri: forward:/customerManagementError
+                                    
+                         - id: CarWasher-Management-Service
+                           uri : lb://CarWasher-Management-Service
+                           predicates: 
+                             - Path=/carwasher/**
+                           filters:
+                               - name: CircuitBreaker
+                                 args:
+                                    name: CarWasher-Management-Service
+                                    fallbackuri: forward:/carWasherManagementError
+                                    
+                         - id: Admin-Management-Service
+                           uri: lb://Admin-Management-Service
+                           predicates: 
+                              - Path=/admin/**
+                           filters:
+                               - name: CircuitBreaker
+                                 args:
+                                    name: Admin-Management-Service
+                                    fallbackuri: forward:/adminManagementError
+                                    
+                         - id: Notification-Service
+                           uri: lb://Notification-Service
+                           predicates: 
+                              - Path=/notification/**
+                           filters:
+                               - name: CircuitBreaker
+                                 args:
+                                    name: Notification-Service
+                                    fallbackuri: forward:/notificationError
+                                    
+                         - id: Payment-Billing-Service
+                           uri: lb://Payment-Billing-Service
+                           predicates: 
+                               - Path=/payment/**
+                           filters:
+                               - name: CircuitBreaker
+                                 args:
+                                    name: Payment-Billing-Service
+                                    fallbackuri: forward:/paymentError
+                                 
+                                      
+server:
+    port: 8091
+
+management:
+    endpoints:
+      web:
+        exposure:
+            include: hysterix.stream
+eureka:
+    client:
+         register-with-eureka: true
+         fetch-registry: true
+         service-url:
+           defaultZone: http://localhost:8761/eureka/
+instance:
+   hostname: localhost
+   
+hysterix:
+   command:
+         fallbackcmd:
+            execution:
+               isolation:
+                  thread:
+                    timeoutInMilliseconds: 70000
