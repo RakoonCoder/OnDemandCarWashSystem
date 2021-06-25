@@ -38,6 +38,8 @@ public class SecurityConfiguration {
 		
 	}
 	
+	
+	
 	/*public void configure(AuthenticationManagerBuilder builder) throws Exception{
 		builder.userDetailsService(userDetailsService);
 	}*/

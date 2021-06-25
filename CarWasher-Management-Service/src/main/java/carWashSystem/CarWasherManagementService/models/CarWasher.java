@@ -14,7 +14,6 @@ public class CarWasher {
 	}
 	public CarWasher(String carwasher_id, String carwasher_usernmename, String carwasher_password,
 			String bank_details) {
-		super();
 		this.carwasher_id = carwasher_id;
 		this.carwasher_usernmename = carwasher_usernmename;
 		this.carwasher_password = carwasher_password;

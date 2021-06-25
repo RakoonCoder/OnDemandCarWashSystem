@@ -1,4 +1,4 @@
-package carWashSystem.CustomerManagementService;
+package carWashSystem.CustomerManagementService.carWashSystem.CustomerManagementService;
 
 
 import org.springframework.boot.SpringApplication;
